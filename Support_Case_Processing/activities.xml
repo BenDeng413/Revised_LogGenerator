@@ -1,0 +1,54 @@
+<Activities>
+<!--    Support case-->
+	<Activity id="read">
+		<Name>Read Ticket</Name>
+		<Duration>
+			<Distribution type="Normal" mean="300" std="180" />
+		</Duration>
+		<DataInput>
+			<DataObject id="ticket"/>
+		</DataInput>
+		<DataOutput>
+			<DataObject id="ticket"/>
+		</DataOutput>
+        <Resources>
+			<Resource class_type="human" org="Company, Inc." dept="Customer Experience" role="Support">1</Resource>
+		</Resources>
+	</Activity>
+	<Activity id="payment">
+		<Name>Order Payment</Name>
+		<Duration>
+			<Distribution type="Normal" mean="900" std="180" />
+		</Duration>
+        <Resources>
+			<Resource class_type="human" org="Company, Inc." dept="Customer Experience" role="Support">1</Resource>
+		</Resources>
+	</Activity>
+	<Activity id="close">
+		<Name>Close Case</Name>
+		<Duration>
+			<Distribution type="Normal" mean="300" std="180" />
+		</Duration>
+        <Resources>
+			<Resource class_type="human" org="Company, Inc." dept="Customer Experience" role="Support">1</Resource>
+		</Resources>
+	</Activity>
+	<Activity id="send_to_host">
+		<Name>Send to Host</Name>
+		<Duration>
+			<Distribution type="Normal" mean="300" std="180" />
+		</Duration>
+        <Resources>
+			<Resource class_type="human" org="Company, Inc." dept="Customer Experience" role="Support">1</Resource>
+		</Resources>
+	</Activity>
+	<Activity id="send_response">
+		<Name>Send Response</Name>
+		<Duration>
+			<Distribution type="Normal" mean="300" std="180" />
+		</Duration>
+        <Resources>
+			<Resource class_type="human" org="Company, Inc." dept="Customer Experience" role="Support">1</Resource>
+		</Resources>
+	</Activity>
+</Activities>

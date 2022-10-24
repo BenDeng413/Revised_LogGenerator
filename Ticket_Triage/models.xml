@@ -1,0 +1,160 @@
+<Models>
+	<Model id='triage'>
+		<Name>Ticket Triage</Name>
+		<ArrivalRate>
+			<Mon>
+				<TimeBlock start="0" end="6">5</TimeBlock>
+				<TimeBlock start="6" end="18">12</TimeBlock>
+				<TimeBlock start="18" end="24">6</TimeBlock>
+			</Mon>
+			<Tue>
+				<TimeBlock start="0" end="6">5</TimeBlock>
+				<TimeBlock start="6" end="18">12</TimeBlock>
+				<TimeBlock start="18" end="24">6</TimeBlock>
+			</Tue>
+			<Wed>
+				<TimeBlock start="0" end="6">5</TimeBlock>
+				<TimeBlock start="6" end="18">12</TimeBlock>
+				<TimeBlock start="18" end="24">6</TimeBlock>
+			</Wed>
+			<Thu>
+				<TimeBlock start="0" end="6">5</TimeBlock>
+				<TimeBlock start="6" end="18">12</TimeBlock>
+				<TimeBlock start="18" end="24">6</TimeBlock>
+			</Thu>
+			<Fri>
+				<TimeBlock start="0" end="6">5</TimeBlock>
+				<TimeBlock start="6" end="18">12</TimeBlock>
+				<TimeBlock start="18" end="24">6</TimeBlock>
+			</Fri>
+			<Sat>
+				<TimeBlock start="0" end="6">5</TimeBlock>
+				<TimeBlock start="6" end="18">12</TimeBlock>
+				<TimeBlock start="18" end="24">6</TimeBlock>
+			</Sat>
+			<Sun>
+				<TimeBlock start="0" end="6">5</TimeBlock>
+				<TimeBlock start="6" end="18">12</TimeBlock>
+				<TimeBlock start="18" end="24">6</TimeBlock>
+			</Sun>
+		</ArrivalRate>
+		<Activities>
+			<Activity id="read">
+				<DataInput>
+					<DataObject id="ticket">
+						<Fields>
+							<Field name ="Value"/>
+						</Fields>
+					</DataObject>
+				</DataInput>
+				<DataOutput>
+					<DataObject id="ticket">
+						<Fields>
+							<Field name="Class"/>
+							<Field name ="Value"/>
+						</Fields>
+					</DataObject>
+				</DataOutput>
+			</Activity>
+			<Activity id="send_to_eng"/>
+			<Activity id="open_trust"/>
+			<Activity id="check_faq"/>
+			<Activity id="open_support"/>
+			<Activity id="send_response"/>
+		</Activities>
+		<Gateways>
+			<Gateway id="bug">
+				<Name>Is it a bug?</Name>
+				<Type>Choice</Type>
+				<Rule>
+					<Gate id="yes"/>
+					<Gate id="no"/>
+				</Rule>
+			</Gateway>
+			<Gateway id="type">
+				<Name>What is the type?</Name>
+				<Type>Choice</Type>
+				<Rule>
+					<Gate id="support"/>
+					<Gate id="trust"/>
+				</Rule>
+			</Gateway>
+			<Gateway id="faq">
+				<Name>Is it in FAQ?</Name>
+				<Type>Choice</Type>
+				<Distribution>
+					<Gate id='yes'>0.4</Gate>
+					<Gate id='no'>0.6</Gate>
+				</Distribution>
+			</Gateway>
+		</Gateways>
+		<Transitions>
+			<Transition source="START" destination="read">
+				<Duration>
+					<Distribution type="Const" value="10" />
+				</Duration>
+			</Transition>
+			<Transition source="read" destination="bug">
+				<Duration>
+					<Distribution type="Const" value="10" />
+				</Duration>
+			</Transition>
+			<Transition source="bug" source_gate="yes" destination="send_to_eng">
+				<Duration>
+					<Distribution type="Const" value="10" />
+				</Duration>
+			</Transition>
+			<Transition source="bug" source_gate="no" destination="type">
+				<Duration>
+					<Distribution type="Const" value="10" />
+				</Duration>
+			</Transition>
+			<Transition source="type" source_gate="support" destination="check_faq">
+				<Duration>
+					<Distribution type="Const" value="10" />
+				</Duration>
+			</Transition>
+			<Transition source="type" source_gate="trust" destination="open_trust">
+				<Duration>
+					<Distribution type="Const" value="10" />
+				</Duration>
+			</Transition>
+			<Transition source="send_to_eng" destination="END">
+				<Duration>
+					<Distribution type="Const" value="10" />
+				</Duration>
+			</Transition>
+			<Transition source="open_trust" destination="END">
+				<Duration>
+					<Distribution type="Const" value="10" />
+				</Duration>
+			</Transition>
+			<Transition source="check_faq" destination="faq">
+				<Duration>
+					<Distribution type="Const" value="10" />
+				</Duration>
+			</Transition>
+			<Transition source="faq" source_gate="yes" destination="send_response">
+				<Duration>
+					<Distribution type="Const" value="10" />
+				</Duration>
+			</Transition>
+			<Transition source="faq" source_gate="no" destination="open_support">
+				<Duration>
+					<Distribution type="Const" value="10" />
+				</Duration>
+			</Transition>
+			<Transition source="send_response" destination="END">
+				<Duration>
+					<Distribution type="Const" value="10" />
+				</Duration>
+			</Transition>
+			<Transition source="open_support" destination="END">
+				<Duration>
+					<Distribution type="Const" value="10" />
+				</Duration>
+			</Transition>
+		</Transitions>
+		<Deadline>50000000</Deadline>
+	</Model>
+</Models>

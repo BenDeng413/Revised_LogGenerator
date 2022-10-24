@@ -1,0 +1,48 @@
+<Activities>
+<!--    Message Triage-->
+    <Activity id="send_to_eng">
+		<Name>Send to Engineering</Name>
+		<Duration>
+			<Distribution type="Normal" mean="600" std="180" />
+		</Duration>
+        <Resources>
+			<Resource class_type="human" org="Company, Inc." dept="Customer Experience" role="Support">1</Resource>
+		</Resources>
+	</Activity>
+    <Activity id="open_trust">
+		<Name>Open Trust Case</Name>
+		<Duration>
+			<Distribution type="Normal" mean="600" std="180" />
+		</Duration>
+        <Resources>
+			<Resource class_type="human" org="Company, Inc." dept="Customer Experience" role="Support">1</Resource>
+		</Resources>
+	</Activity>
+    <Activity id="check_faq">
+		<Name>Check FAQ</Name>
+		<Duration>
+			<Distribution type="Normal" mean="900" std="180" />
+		</Duration>
+        <Resources>
+			<Resource class_type="human" org="Company, Inc." dept="Customer Experience" role="Support">1</Resource>
+		</Resources>
+	</Activity>
+    <Activity id="open_support">
+		<Name>Open Support Case</Name>
+		<Duration>
+			<Distribution type="Normal" mean="600" std="180" />
+		</Duration>
+        <Resources>
+			<Resource class_type="human" org="Company, Inc." dept="Customer Experience" role="Support">1</Resource>
+		</Resources>
+	</Activity>
+    <Activity id="send_response">
+		<Name>Send Response</Name>
+		<Duration>
+			<Distribution type="Normal" mean="300" std="180" />
+		</Duration>
+        <Resources>
+			<Resource class_type="human" org="Company, Inc." dept="Customer Experience" role="Support">1</Resource>
+		</Resources>
+	</Activity>
+</Activities>

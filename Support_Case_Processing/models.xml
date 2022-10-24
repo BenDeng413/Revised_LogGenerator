@@ -1,0 +1,156 @@
+<Models>
+	<Model id="support">
+		<Name>Support Case</Name>
+		<ArrivalRate>
+			<Mon>
+				<TimeBlock start="0" end="6">3</TimeBlock>
+				<TimeBlock start="6" end="18">8</TimeBlock>
+				<TimeBlock start="18" end="24">4</TimeBlock>
+			</Mon>
+			<Tue>
+				<TimeBlock start="0" end="6">3</TimeBlock>
+				<TimeBlock start="6" end="18">8</TimeBlock>
+				<TimeBlock start="18" end="24">4</TimeBlock>
+			</Tue>
+			<Wed>
+				<TimeBlock start="0" end="6">3</TimeBlock>
+				<TimeBlock start="6" end="18">8</TimeBlock>
+				<TimeBlock start="18" end="24">4</TimeBlock>
+			</Wed>
+			<Thu>
+				<TimeBlock start="0" end="6">3</TimeBlock>
+				<TimeBlock start="6" end="18">8</TimeBlock>
+				<TimeBlock start="18" end="24">4</TimeBlock>
+			</Thu>
+			<Fri>
+				<TimeBlock start="0" end="6">3</TimeBlock>
+				<TimeBlock start="6" end="18">8</TimeBlock>
+				<TimeBlock start="18" end="24">4</TimeBlock>
+			</Fri>
+			<Sat>
+				<TimeBlock start="0" end="6">3</TimeBlock>
+				<TimeBlock start="6" end="18">8</TimeBlock>
+				<TimeBlock start="18" end="24">4</TimeBlock>
+			</Sat>
+			<Sun>
+				<TimeBlock start="0" end="6">3</TimeBlock>
+				<TimeBlock start="6" end="18">8</TimeBlock>
+				<TimeBlock start="18" end="24">4</TimeBlock>
+			</Sun>
+		</ArrivalRate>
+		<Activities>
+			<Activity id="read"/>
+			<Activity id="payment"/>
+			<Activity id="close"/>
+			<Activity id="send_to_host"/>
+			<Activity id="send_response"/>
+		</Activities>
+		<Gateways>
+			<Gateway id="financial">
+				<Name>Is it a financial matter?</Name>
+				<Type>Choice</Type>
+				<Distribution>
+					<Gate id='yes'>0.3</Gate>
+					<Gate id='no'>0.7</Gate>
+				</Distribution>
+			</Gateway>
+			<Gateway id="merit">
+				<Name>Does the claim have merit?</Name>
+				<Type>Choice</Type>
+				<Distribution>
+					<Gate id='yes'>0.8</Gate>
+					<Gate id='no'>0.2</Gate>
+				</Distribution>
+			</Gateway>
+			<Gateway id="hostFault">
+				<Name>Is the host at fault?</Name>
+				<Type>Choice</Type>
+				<Distribution>
+					<Gate id='yes'>0.5</Gate>
+					<Gate id='no'>0.5</Gate>
+				</Distribution>
+			</Gateway>
+			<Gateway id="resolved">
+				<Name>Is the matter resolved?</Name>
+				<Type>Choice</Type>
+				<Distribution>
+					<Gate id='yes'>0.8</Gate>
+					<Gate id='no'>0.2</Gate>
+				</Distribution>
+			</Gateway>
+		</Gateways>
+		<Transitions>
+			<Transition source="START" destination="read">
+				<Duration>
+					<Distribution type="Const" value="10" />
+				</Duration>
+			</Transition>
+			<Transition source="read" destination="financial">
+				<Duration>
+					<Distribution type="Const" value="10" />
+				</Duration>
+			</Transition>
+			<Transition source="financial" source_gate="yes" destination="merit">
+				<Duration>
+					<Distribution type="Const" value="10" />
+				</Duration>
+			</Transition>
+			<Transition source="financial" source_gate="no" destination="send_response">
+				<Duration>
+					<Distribution type="Const" value="10" />
+				</Duration>
+			</Transition>
+			<Transition source="merit" source_gate="yes" destination="payment">
+				<Duration>
+					<Distribution type="Const" value="10" />
+				</Duration>
+			</Transition>
+			<Transition source="merit" source_gate="no" destination="send_response">
+				<Duration>
+					<Distribution type="Const" value="10" />
+				</Duration>
+			</Transition>
+			<Transition source="payment" destination="hostFault">
+				<Duration>
+					<Distribution type="Const" value="10" />
+				</Duration>
+			</Transition>
+			<Transition source="send_response" destination="resolved">
+				<Duration>
+					<Distribution type="Const" value="10" />
+				</Duration>
+			</Transition>
+			<Transition source="hostFault" source_gate="yes" destination="send_to_host">
+				<Duration>
+					<Distribution type="Const" value="10" />
+				</Duration>
+			</Transition>
+			<Transition source="hostFault" source_gate="no" destination="close">
+				<Duration>
+					<Distribution type="Const" value="10" />
+				</Duration>
+			</Transition>
+			<Transition source="resolved" source_gate="yes" destination="close">
+				<Duration>
+					<Distribution type="Const" value="10" />
+				</Duration>
+			</Transition>
+			<Transition source="resolved" source_gate="no" destination="send_response">
+				<Duration>
+					<Distribution type="Const" value="10" />
+				</Duration>
+			</Transition>
+			<Transition source="close" destination="END">
+				<Duration>
+					<Distribution type="Const" value="10" />
+				</Duration>
+			</Transition>
+			<Transition source="send_to_host" destination="END">
+				<Duration>
+					<Distribution type="Const" value="10" />
+				</Duration>
+			</Transition>
+		</Transitions>
+		<Deadline>50000000</Deadline>
+	</Model>
+</Models>

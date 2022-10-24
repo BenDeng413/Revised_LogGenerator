@@ -1,0 +1,142 @@
+<Models>
+	<Model id="trust">
+		<Name>Trust Case</Name>
+		<ArrivalRate>
+			<Mon>
+				<TimeBlock start="0" end="6">1</TimeBlock>
+				<TimeBlock start="6" end="18">3</TimeBlock>
+				<TimeBlock start="18" end="24">2</TimeBlock>
+			</Mon>
+			<Tue>
+				<TimeBlock start="0" end="6">1</TimeBlock>
+				<TimeBlock start="6" end="18">3</TimeBlock>
+				<TimeBlock start="18" end="24">2</TimeBlock>
+			</Tue>
+			<Wed>
+				<TimeBlock start="0" end="6">1</TimeBlock>
+				<TimeBlock start="6" end="18">3</TimeBlock>
+				<TimeBlock start="18" end="24">2</TimeBlock>
+			</Wed>
+			<Thu>
+				<TimeBlock start="0" end="6">1</TimeBlock>
+				<TimeBlock start="6" end="18">3</TimeBlock>
+				<TimeBlock start="18" end="24">2</TimeBlock>
+			</Thu>
+			<Fri>
+				<TimeBlock start="0" end="6">1</TimeBlock>
+				<TimeBlock start="6" end="18">3</TimeBlock>
+				<TimeBlock start="18" end="24">2</TimeBlock>
+			</Fri>
+			<Sat>
+				<TimeBlock start="0" end="6">1</TimeBlock>
+				<TimeBlock start="6" end="18">3</TimeBlock>
+				<TimeBlock start="18" end="24">2</TimeBlock>
+			</Sat>
+			<Sun>
+				<TimeBlock start="0" end="6">1</TimeBlock>
+				<TimeBlock start="6" end="18">3</TimeBlock>
+				<TimeBlock start="18" end="24">2</TimeBlock>
+			</Sun>
+		</ArrivalRate>
+		<Activities>
+			<Activity id="read">
+				<Resources>
+					<Resource class_type="human" org="Company, Inc." dept="Customer Experience" role="Trust">1</Resource>
+				</Resources>
+			</Activity>
+			<Activity id="rebook"/>
+			<Activity id="close"/>
+			<Activity id="research"/>
+			<Activity id="send_response"/>
+		</Activities>
+		<Gateways>
+			<Gateway id="currentTrip">
+				<Name>Incident in current trip?</Name>
+				<Type>Choice</Type>
+				<Distribution>
+					<Gate id='yes'>0.7</Gate>
+					<Gate id='no'>0.3</Gate>
+				</Distribution>
+			</Gateway>
+			<Gateway id="potentialDanger">
+				<Name>Does the guest feel unsafe?</Name>
+				<Type>Choice</Type>
+				<Distribution>
+					<Gate id='yes'>0.3</Gate>
+					<Gate id='no'>0.7</Gate>
+				</Distribution>
+			</Gateway>
+			<Gateway id="resolved">
+				<Name>Is the matter resolved?</Name>
+				<Type>Choice</Type>
+				<Distribution>
+					<Gate id='yes'>0.8</Gate>
+					<Gate id='no'>0.2</Gate>
+				</Distribution>
+			</Gateway>
+		</Gateways>
+		<Transitions>
+			<Transition source="START" destination="read">
+				<Duration>
+					<Distribution type="Const" value="10" />
+				</Duration>
+			</Transition>
+			<Transition source="read" destination="currentTrip">
+				<Duration>
+					<Distribution type="Const" value="10" />
+				</Duration>
+			</Transition>
+			<Transition source="currentTrip" source_gate="yes" destination="potentialDanger">
+				<Duration>
+					<Distribution type="Const" value="10" />
+				</Duration>
+			</Transition>
+			<Transition source="currentTrip" source_gate="no" destination="research">
+				<Duration>
+					<Distribution type="Const" value="10" />
+				</Duration>
+			</Transition>
+			<Transition source="potentialDanger" source_gate="yes" destination="rebook">
+				<Duration>
+					<Distribution type="Const" value="10" />
+				</Duration>
+			</Transition>
+			<Transition source="potentialDanger" source_gate="no" destination="research">
+				<Duration>
+					<Distribution type="Const" value="10" />
+				</Duration>
+			</Transition>
+			<Transition source="rebook" destination="close">
+				<Duration>
+					<Distribution type="Const" value="10" />
+				</Duration>
+			</Transition>
+			<Transition source="research" destination="send_response">
+				<Duration>
+					<Distribution type="Const" value="10" />
+				</Duration>
+			</Transition>
+			<Transition source="send_response" destination="resolved">
+				<Duration>
+					<Distribution type="Const" value="10" />
+				</Duration>
+			</Transition>
+			<Transition source="resolved" source_gate="yes" destination="close">
+				<Duration>
+					<Distribution type="Const" value="10" />
+				</Duration>
+			</Transition>
+			<Transition source="resolved" source_gate="no" destination="send_response">
+				<Duration>
+					<Distribution type="Const" value="10" />
+				</Duration>
+			</Transition>
+			<Transition source="close" destination="END">
+				<Duration>
+					<Distribution type="Const" value="10" />
+				</Duration>
+			</Transition>
+		</Transitions>
+		<Deadline>50000000</Deadline>
+	</Model>
+</Models>

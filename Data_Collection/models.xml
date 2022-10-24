@@ -1,0 +1,115 @@
+<Models>
+	<Model id="data_collection">
+		<Name>Data Collection</Name>
+		<ArrivalRate>
+			<Mon>
+				<TimeBlock start="0" end="6">5</TimeBlock>
+				<TimeBlock start="6" end="18">12</TimeBlock>
+				<TimeBlock start="18" end="24">6</TimeBlock>
+			</Mon>
+			<Tue>
+				<TimeBlock start="0" end="6">5</TimeBlock>
+				<TimeBlock start="6" end="18">12</TimeBlock>
+				<TimeBlock start="18" end="24">6</TimeBlock>
+			</Tue>
+			<Wed>
+				<TimeBlock start="0" end="6">5</TimeBlock>
+				<TimeBlock start="6" end="18">12</TimeBlock>
+				<TimeBlock start="18" end="24">6</TimeBlock>
+			</Wed>
+			<Thu>
+				<TimeBlock start="0" end="6">5</TimeBlock>
+				<TimeBlock start="6" end="18">12</TimeBlock>
+				<TimeBlock start="18" end="24">6</TimeBlock>
+			</Thu>
+			<Fri>
+				<TimeBlock start="0" end="6">5</TimeBlock>
+				<TimeBlock start="6" end="18">12</TimeBlock>
+				<TimeBlock start="18" end="24">6</TimeBlock>
+			</Fri>
+			<Sat>
+				<TimeBlock start="0" end="6">5</TimeBlock>
+				<TimeBlock start="6" end="18">12</TimeBlock>
+				<TimeBlock start="18" end="24">6</TimeBlock>
+			</Sat>
+			<Sun>
+				<TimeBlock start="0" end="6">5</TimeBlock>
+				<TimeBlock start="6" end="18">12</TimeBlock>
+				<TimeBlock start="18" end="24">6</TimeBlock>
+			</Sun>
+		</ArrivalRate>
+		<Activities>
+			<Activity id="read"/>
+			<Activity id="city_records"/>
+			<Activity id="criminal_bc"/>
+			<Activity id="so_bc"/>
+			<Activity id="consolidate"/>
+		</Activities>
+		<Gateways>
+			<Gateway id="review_open">
+				<Name>Review Process Start</Name>
+				<Type>Parallel</Type>
+				<Gates>
+					<Gate id="city"/>
+					<Gate id="background"/>
+				</Gates>
+			</Gateway>
+			<Gateway id="review_close">
+				<Name>Review Process End</Name>
+				<Type>Merge</Type>
+				<Gates>
+					<Gate id="city"/>
+					<Gate id="background"/>
+				</Gates>
+			</Gateway>
+		</Gateways>
+		<Transitions>
+			<Transition source="START" destination="read">
+				<Duration>
+					<Distribution type="Const" value="10" />
+				</Duration>
+			</Transition>
+			<Transition source="read" destination="review_open">
+				<Duration>
+					<Distribution type="Const" value="10" />
+				</Duration>
+			</Transition>
+			<Transition source="review_open" source_gate="city" destination="city_records">
+				<Duration>
+					<Distribution type="Const" value="10" />
+				</Duration>
+			</Transition>
+			<Transition source="review_open" source_gate="background" destination="criminal_bc">
+				<Duration>
+					<Distribution type="Const" value="10" />
+				</Duration>
+			</Transition>
+			<Transition source="city_records" destination="review_close" source_gate="city">
+				<Duration>
+					<Distribution type="Const" value="10" />
+				</Duration>
+			</Transition>
+			<Transition source="criminal_bc" destination="so_bc">
+				<Duration>
+					<Distribution type="Const" value="10" />
+				</Duration>
+			</Transition>
+			<Transition source="so_bc" destination="review_close" source_gate="background">
+				<Duration>
+					<Distribution type="Const" value="10" />
+				</Duration>
+			</Transition>
+			<Transition source="review_close" source_gate="out" destination="consolidate">
+				<Duration>
+					<Distribution type="Const" value="10" />
+				</Duration>
+			</Transition>
+			<Transition source="consolidate" destination="END">
+				<Duration>
+					<Distribution type="Const" value="10" />
+				</Duration>
+			</Transition>
+		</Transitions>
+		<Deadline>50000000</Deadline>
+	</Model>
+</Models>

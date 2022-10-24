@@ -1,0 +1,55 @@
+<Activities>
+<!--    Trust Case-->
+	<Activity id="read">
+		<Name>Read Ticket</Name>
+		<Duration>
+			<Distribution type="Normal" mean="300" std="180" />
+		</Duration>
+		<DataInput>
+			<DataObject id="ticket"/>
+		</DataInput>
+		<DataOutput>
+			<DataObject id="ticket"/>
+		</DataOutput>
+        <Resources>
+			<Resource class_type="human" org="Company, Inc." dept="Customer Experience" role="Support">1</Resource>
+		</Resources>
+	</Activity>
+    <Activity id="rebook">
+		<Name>Priority Rebook</Name>
+		<Duration>
+			<Distribution type="Normal" mean="1800" std="600" />
+		</Duration>
+        <Resources>
+			<Resource class_type="human" org="Company, Inc." dept="Customer Experience" role="Trust">1</Resource>
+		</Resources>
+        <Priority>High</Priority>
+	</Activity>
+	<Activity id="close">
+		<Name>Close Case</Name>
+		<Duration>
+			<Distribution type="Normal" mean="300" std="180" />
+		</Duration>
+        <Resources>
+			<Resource class_type="human" org="Company, Inc." dept="Customer Experience" role="Support">1</Resource>
+		</Resources>
+	</Activity>
+    <Activity id="research">
+		<Name>Case Research</Name>
+		<Duration>
+			<Distribution type="Normal" mean="1800" std="600" />
+		</Duration>
+        <Resources>
+			<Resource class_type="human" org="Company, Inc." dept="Customer Experience" role="Trust">1</Resource>
+		</Resources>
+	</Activity>
+	<Activity id="send_response">
+		<Name>Send Response</Name>
+		<Duration>
+			<Distribution type="Normal" mean="300" std="180" />
+		</Duration>
+        <Resources>
+			<Resource class_type="human" org="Company, Inc." dept="Customer Experience" role="Support">1</Resource>
+		</Resources>
+	</Activity>
+</Activities>

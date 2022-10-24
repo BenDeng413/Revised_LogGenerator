@@ -1,0 +1,54 @@
+<Activities>
+<!-- Data Collection-->
+	<Activity id="read">
+		<Name>Read Ticket</Name>
+		<Duration>
+			<Distribution type="Normal" mean="300" std="180" />
+		</Duration>
+		<DataInput>
+			<DataObject id="ticket"/>
+		</DataInput>
+		<DataOutput>
+			<DataObject id="ticket"/>
+		</DataOutput>
+        <Resources>
+			<Resource class_type="human" org="Company, Inc." dept="Customer Experience" role="Support">1</Resource>
+		</Resources>
+	</Activity>
+	<Activity id="city_records">
+		<Name>Check City Records</Name>
+		<Duration>
+			<Distribution type="Normal" mean="7200" std="600" />
+		</Duration>
+        <Resources>
+			<Resource class_type="human" org="Company, Inc." dept="Customer Experience" role="Support">1</Resource>
+		</Resources>
+	</Activity>
+	<Activity id="criminal_bc">
+		<Name>Perform Criminal Background Check</Name>
+		<Duration>
+			<Distribution type="Normal" mean="1800" std="600" />
+		</Duration>
+        <Resources>
+			<Resource class_type="human" org="Company, Inc." dept="Customer Experience" role="Trust">1</Resource>
+		</Resources>
+	</Activity>
+	<Activity id="so_bc">
+		<Name>Check Sex Offender Registry</Name>
+		<Duration>
+			<Distribution type="Normal" mean="1800" std="600" />
+		</Duration>
+        <Resources>
+			<Resource class_type="human" org="Company, Inc." dept="Customer Experience" role="Trust">1</Resource>
+		</Resources>
+	</Activity>
+	<Activity id="consolidate">
+		<Name>Priority Rebook</Name>
+		<Duration>
+			<Distribution type="Normal" mean="1800" std="600" />
+		</Duration>
+        <Resources>
+			<Resource class_type="human" org="Company, Inc." dept="Customer Experience" role="Trust">1</Resource>
+		</Resources>
+	</Activity>
+</Activities>
